@@ -1,4 +1,4 @@
-## Rain-Streak-Removal-via-Learning-Rainy-Magnitude
+## Rain-Streak-Removal-via-Learning-Rainy-Variation
 
 
 
