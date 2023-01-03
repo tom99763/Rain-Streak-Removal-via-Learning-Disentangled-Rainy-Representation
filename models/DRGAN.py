@@ -29,11 +29,11 @@ class DRGAN(tf.keras.Model):
       
       #deraining
       c_r, f_r = self.G.encode(x_r)
-      x_r2nr = self.G.decode(c_r, 0.)
+      x_r2nr = self.G.decode(c_r, tf.zeros_like(f_r))
       c_r2nr, f_r2nr = self.encode(x_r2nr)
       
       #reconstruction
-      x_nr_re = self.G.decode(c_nr, 0.)
+      x_nr_re = self.G.decode(c_nr, tf.zeros_like(f_nr))
       x_r_re = self.G.decode(c_r, f_r)
       
       #discirmination
