@@ -10,9 +10,9 @@ class DRGAN(tf.keras.Model):
   def __init__(self, config):
     super().__init__()
     
-    self.G
-    self.Dr
-    self.Dnr
+    self.G = Generator(config)
+    self.Dr = Discriminator(config)
+    self.Dnr = Discriminator(config)
     self.config = config
     
   def train_step(self, inputs):
@@ -60,5 +60,15 @@ class DRGAN(tf.keras.Model):
       #total loss
       g_loss = l_re + l_latent + l_g
       d_loss = l_d
+    g_grads = tape.gradient(g_loss, self.G.trainable_weights)
+    d_grads = tape.gradient(d_loss, self.Dr.trainable_weights + self.Dnr.trainable_weights)
+    self.optimizer[0].apply_gradients(zip(g_grads, self.G.trainable_weights))
+    self.optimizer[1].apply_gradients(zip(d_grads, self.Dr.trainable_weights + self.Dr.trainable_weights))
+    return {'l_central':l_central, 'l_match':l_match, 'l_re':l_re, 'l_g':l_g, 'l_d':l_d}
+    
+    
+    
+    
+    
       
       
